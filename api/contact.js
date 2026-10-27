@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'eXpress Spa Deliveries <tim@sondersites.com>',
-        to: ['expressspadelivery@gmail.com'],
+        to: ['mark@mrspa.com.au'],
         reply_to: email,
         subject: `New Quote Request from ${name}`,
         html: `
