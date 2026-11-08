@@ -8,7 +8,7 @@ if(estimator){
  preset.addEventListener('change',()=>{custom.hidden=preset.value!=='custom';});
  const toRadians=n=>n*Math.PI/180;
  function distanceTo(p){const a=toRadians(p[2]+37.8),b=toRadians(p[3]-145.2833),h=Math.sin(a/2)**2+Math.cos(toRadians(-37.8))*Math.cos(toRadians(p[2]))*Math.sin(b/2)**2;return Math.max(5,Math.round((6371*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))*1.3)/5)*5);}
- const money=n=>new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:0,maximumFractionDigits:2}).format(n);
+ const money=n=>new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2}).format(n);
  function element(tag,text,cls){const x=document.createElement(tag);x.textContent=text;if(cls)x.className=cls;return x;}
  estimator.addEventListener('submit',async e=>{
   e.preventDefault();if(!estimator.reportValidity())return;const btn=estimator.querySelector('button'),manual=estimator.elements.oneWayKm.value.trim();btn.disabled=true;
