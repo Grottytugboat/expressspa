@@ -14,9 +14,13 @@ Required runtime configuration: `RESEND_API_KEY`, `BLOB_READ_WRITE_TOKEN` (or su
 
 One- and three-day reminders go to Mark, not directly to customers. Contacted/Closed stops reminders; Quoted restarts the reminder clock. Signed email links expire after 30 days and require a confirmation POST. A daily Vercel cron runs at 21:00 UTC (8am AEDT / 7am AEST).
 
-## Estimate configuration — awaiting Mark
+## Estimate configuration — updated 8 November 2026
 
-Set `TRUCK_RATE_PER_KM`, `LABOUR_RATE_PER_HOUR`, `CRANE_RATE_PER_LIFT`, `MINIMUM_JOB_CHARGE`, `PRICING_GST` (inclusive/exclusive), and only then `PRICING_CONFIRMED=true`. Until confirmed, the estimator collects planning inputs and hands them to Mark without inventing a price. Crane default is 55 internally, based on Tim’s note; it is not advertised as a final price. Confirm kilometre basis, crew-hour basis, number of lifts and GST before enabling.
+Tim supplied rough rates: truck $1.50/km, crane $75/lift, labour $70/hour/person, plus GST. Travel is Croydon → customer location → Croydon. The standard labour allowance is two people for one hour; visitors can choose a preset or exact crew/time. Unsure about crane lifts allows two lifts, visibly disclosed. No minimum has been supplied, so no additional minimum is imposed.
+
+A local Victorian suburb/postcode lookup avoids external address APIs. Suburb-based distance is an explicit approximation: locality-centre straight-line distance ×1.3 road allowance, rounded to 5 km, with a 5 km local allowance. It is not a measured driving route. Customers can override with approximate one-way kilometres, which are doubled for return travel. Interstate visitors use a distance override. Data: GeoNames via Elkfox, CC BY 3.0, attributed in the estimator.
+
+Runtime configuration: TRUCK_RATE_PER_KM=1.50, LABOUR_RATE_PER_HOUR=70, CRANE_RATE_PER_LIFT=75, MINIMUM_JOB_CHARGE=0, PRICING_GST=exclusive, PRICING_CONFIRMED=true. Runtime overrides remain available for future changes. Rates and final crew/time can vary by job; the estimate is a guide and is passed into the enquiry, never auto-booked.
 
 ## Social
 
@@ -24,4 +28,4 @@ Zernio profile: Express Spa Deliveries. Google Business location is connected vi
 
 ## Still dependent on Mark
 
-Truck/labour rates, GST, lift unit/minimums, product photos and live cover stock/prices, recent delivery photos with suburb/context. Email sent 8 November 2026. Search Console verification and sitemap submission should be checked against the production domain after release. Submitting a sitemap is not a guarantee of indexing or rankings.
+Any minimum or special-job charges, product photos and live cover stock/prices, recent delivery photos with suburb/context. Email sent 8 November 2026. Search Console verification and sitemap submission should be checked against the production domain after release. Submitting a sitemap is not a guarantee of indexing or rankings.
